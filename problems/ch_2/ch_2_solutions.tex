@@ -1,0 +1,146 @@
+%------------------------------------------------------------------------------------------------------------------------------------------------------
+%--- PREAMBLE
+\documentclass{paper}
+\usepackage{amsmath, amssymb, amsthm}
+
+% no indentation on new paragraphs
+\setlength\parindent{0pt}
+
+% alias for blackboard bold letters
+\newcommand{\pr}{\mathbb{P}}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------------
+%--- DOCUMENT
+\begin{document}
+
+\section*{Chapter 2. Probability}
+
+\subsection{Notes}
+\vspace{0.25 in}
+\textbf{Def 2.5} \emph{A function $\pr$ that assigns a real number $\pr(A)$ to each event $A$, called the \textbf{probability} of $A$. We also call $P$ the \textbf{probability distribution} or \textbf{probability measure}. To qualify as a probability, $P$ has to satisfy three axioms:}\\
+
+\begin{tabular}{rl}
+\qquad \textbf{Axiom 1.} & $\pr(A)\ge 0$ for every $A$\\
+\qquad \textbf{Axiom 2.} & $\pr(\Omega)=1$\\
+\qquad \textbf{Axiom 3.} & If $A_1, A_2, \ldots$ are disjoint, then $\pr(\bigcup_{i=1}^{\infty}A_i) = \sum_{i=1}^{\infty}\pr(A_i)$\\
+\end{tabular}
+\vspace{0.25 in}
+
+
+\subsection{Problems}
+\textbf{1.} Fill in the details of the proof of Theorem 2.8. Also, prove the monotone decreasing case.\\
+
+\textbf{Thm. 2.8 (Continuity of Probabilities).} \emph{If $A_n\to A$ then $\pr(A_n)\to \pr(A)$ as $n\to\infty$.}
+
+\begin{proof}
+Suppose that $A_n$ is monotone increasing so that $A_1\subset A_2\cdots$. Let $A = \lim_{n\to_\infty} A_n$. Since $A_n$ is monotone increasing, $A=\bigcup_{i=1}^{\infty} A_n$. Define a sequence $B_n$ as follows. 
+\[
+B_i=
+\left\{
+\begin{array}{l}
+A_1,\ i=1\\
+A_i \setminus \bigcup_{j=1}^{i-1} A_i,\ i>1
+\end{array}
+\right.
+\]
+
+Let $1\le i < j$. By definition of $B_j$, $B_j\cap A_i=\emptyset$ and $B_i\subset A_i$, hence $B_i\cap B_j=\emptyset$. So, the terms of $B_n$ are disjoint. Since $A_n$ is monotone increasing, $A_k = \bigcup_{i=1}^k A_i$. Now, let $x\in A_k$ for some $k\ge 1$. If $x\notin A_j$ for all $j<k$, then $x\in B_k$ and hence $x\in \bigcup_{i=1}^k B_i$. Suppose $x\in A_j$ for some $j<k$, and take $j$ to be the smallest such value. Then $x\in B_j$ and so $x\in \bigcup_{i=1}^k B_i$. Hence $A_k\subset \bigcup_{i=1}^k B_i$. Now, suppose $x\in \bigcup_{i=1}^k B_i$. Then $x\in B_j$ for some $1\le j\le k$. Since $B_j\subset A_j$, we get $x\in A_j$, and since $A_j\subset A_k$ we have $x\in A_k$. Hence, $\bigcup_{i=1}^k B_i\subset A_k$, and therefore $A_k = \bigcup_{i=1}^k B_i$. Then by Axiom (3)*,
+
+\[
+\pr(A_n) = \pr\left(\bigcup_{i=1}^n B_i\right) = \sum_{i=1}^n \pr(B_i)
+\]
+and again by Axiom (3),
+
+\[
+\lim _{n\to\infty} \pr(A_n) 
+= \lim_{n\to\infty}\sum_{i=1}^n \pr(B_i) 
+= \sum_{i=1}^{\infty} \pr(B_i) 
+= \pr\left(\bigcup_{i=1}^{\infty}\right) 
+= \pr(A)
+\]
+\end{proof}
+
+
+
+\textbf{2.} Prove the statements in equation (2.1).\\
+
+\textbf{(a)} $\pr(\emptyset) = 0$.
+\begin{proof}
+Let $A\subset \Omega$. Note that $A = A \cup \emptyset$, so by Axiom (3), 
+
+\[
+\pr(A) = \pr(A \cup \emptyset) = \pr(A) + \pr(\emptyset) \Rightarrow \pr(\emptyset) = \pr(A) - \pr(A) = 0
+\]
+\end{proof}
+
+\textbf{(b)} $A\subset B \Rightarrow \pr(A) \le \pr(B)$
+
+\begin{proof}
+Assume $A\subset B$. We can write $B=A\cup (B\setminus A)$. By Axiom (3), 
+\[
+\pr(B) = \pr(A\cup (B\setminus A)) = \pr(A) + \pr(B\setminus A)
+\]
+By Axiom (1), $\pr(A\cup (B\setminus A)) \ge 0$, hence
+\[
+\pr(A) = \pr(B) - \pr(A\cup (B\setminus A)) \le \pr(B)
+\]
+\end{proof}
+
+\textbf{(c)} $0\le \pr(A) \le 1$
+\begin{proof}
+This follows from (a) and (b), since for all $A$, $\emptyset\subset A \subset \Omega$.
+\end{proof}
+
+\textbf{(d)} $\pr(A^c) = 1 - \pr(A)$
+\begin{proof}
+By definition $A^c = \Omega\setminus A$ and $\Omega = A \cup (\Omega\setminus A) = A\cup A^c$. By Axiom (3)
+\[
+\pr(\Omega) = \pr( A \cup A^c) = \pr(A) + \pr(A^c) = 1 \Rightarrow \pr(A^c) = 1 - \pr(A)
+\]
+\end{proof}
+
+\textbf{(e)} $A\cap B = \emptyset \Rightarrow \pr(A\cup B) = \pr(A) + \pr(B)$
+\begin{proof}
+This follows immediately from Axiom (3).
+\end{proof}
+
+
+\textbf{3.} Let $\Omega$ be a sample space and let $A_1, A_2, \ldots$ be events in $\Omega$. Define $B_n = \bigcup_{i=n}^{\infty}A_i$ and $C_n = \bigcap_{i=n}^{\infty} A_i$.\\
+
+\textbf{(a)} Show that $B_1\supset B_2\supset \cdots$ and $C_1\subset B_2\subset \cdots$.
+
+\begin{proof}
+Let $1 \le m<n$. Then
+\[
+B_m =  \bigcup_{i=m}^{\infty}A_i 
+=  \bigcup_{i=m}^{n-1}A_i \cup  \bigcup_{i=n}^{\infty}A_i 
+= \bigcup_{i=m}^{n-1}A_i \cup  B_n 
+\Rightarrow B_m\supset B_n
+\]
+Similarly,
+\[
+C_m =  \bigcap_{i=m}^{\infty}A_i 
+=  \bigcap_{i=m}^{n-1}A_i \cap  \bigcap_{i=n}^{\infty}A_i 
+= \bigcap_{i=m}^{n-1}A_i \cap  C_n 
+\Rightarrow C_m \subset C_n
+\]
+\end{proof}
+
+\textbf{(b)} Show that $\omega \in \bigcap_{n=1}^{\infty} B_n$ if and only if $\omega$ belongs to an infinite number of events $A_{i_1}, A_{i_2}, \ldots$. 
+
+\begin{proof}
+$(\Rightarrow)$ Suppose $\omega\in \bigcap_{n=1}^{\infty} B_n$. Then $\omega in B_1$. 
+\end{proof}
+
+\textbf{4.}\\
+
+\textbf{5.} Suppose we toss a fair coin until we get exactly two heads. Describe the sample space $S$. What is the probability that exactly $k$ tosses are required?\\
+
+Let $t^n$ denote a $n$ consecutive tails. Then tossing a fair coin until we get exactly two heads can be denoted as $t^{n_1}ht^{n_2}h$, where $n_1, n_2 \ge 0$. Fix some $k\ge 2$. There are 
+
+
+
+\textbf{6.}
+
+
+\end{document}
